@@ -1,0 +1,20 @@
+name: Run Scripts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run Python script
+      run: python main.py
+
+    - name: Run Shell script
+      run: bash my_script.sh
