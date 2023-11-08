@@ -1,16 +1,10 @@
-<#
- Description: PowerShell Script to get commit id for a specific tag and set it to a pipeline variable
- Author: tres
-#>
-
 param (
     # Name of the Source Tag
     $SourceTag
 )
 
-# Set Git global configurations
-git config --global user.name 'tres'
-git config --global user.email 'tres@gmail.com'
+git config --global user.name 'Anilathmacloudeqs'
+git config --global user.email 'Anilathma@cloudeqs.com'
 git config --global pull.rebase false
 
 # List current Git configurations and branches
