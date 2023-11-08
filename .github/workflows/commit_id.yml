@@ -1,0 +1,35 @@
+name: Get Commit ID
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: PowerShell/setup-powershell@v1
+
+      - name: Run PowerShell Script
+        run: |
+          $SourceTag = 'ytg1.0'  # Replace with the desired tag name
+          .\newshell.ps1 $SourceTag
+        working-directory: .github/workflows  # Path to your script
+
+      - name: Save Commit ID as an Artifact
+        run: |
+          echo "COMMIT_ID=$commitid" >> $GITHUB_ENV
+          echo "COMMIT_ID=$commitid" > commit-id.txt
+        id: commit-id
+
+      - name: Upload Commit ID as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: commit-id
+          path: commit-id.txt
