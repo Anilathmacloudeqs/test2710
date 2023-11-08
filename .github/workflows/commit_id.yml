@@ -1,4 +1,4 @@
-name: Print Commit ID
+name: Get Commit ID from Tag
 
 on:
   workflow_dispatch:
@@ -8,15 +8,20 @@ on:
         required: true
 
 jobs:
-  print-commit-id:
+  get-commit-id:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: test2710/newshell.ps1
+        uses: actions/checkout@v2 # Use the standard action to checkout code
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt # If you have any Python dependencies
 
       - name: Get Commit ID
-        run: |
-          tag_name=ytg1.0  # Specify your tag name here
-          commit_id=$(git rev-list -n 1 $tag_name)
-          echo "Commit ID for $tag_name: $commit_id"
+        run: python main.py ${{ github.event.inputs.tag }}
